@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>VPN IPSec Site-to-Site – GNS3</title>
+  <style>
+    /* Base */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #1a73e8;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #1a73e8;
+      border-bottom: 2px solid #1a73e8;
+      padding-bottom: 5px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #1558b0;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #1a73e8;
+      color: white;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #ddd;
+      margin: 30px 0;
+    }
+
+    .emoji {
+      font-size: 1.2em;
+    }
+
+    .salutation {
+      font-style: italic;
+      text-align: center;
+      margin-top: 30px;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>VPN IPSec Site-to-Site – GNS3</h1>
+
+    <h2>Vue d'ensemble du projet</h2>
+    <p>Ce projet démontre la conception, la configuration et la validation d'un tunnel VPN IPSec site-to-site sécurisé entre deux réseaux locaux distants. La solution est implémentée via des routeurs Cisco dans l'environnement GNS3, simulant une interconnexion sécurisée sur un réseau public.</p>
+
+    <h3>Garanties de sécurité IPSec</h3>
+    <ul>
+      <li>✓ <strong>Confidentialité</strong> : Chiffrement des données en transit</li>
+      <li>✓ <strong>Intégrité</strong> : Vérification de l'authenticité des échanges</li>
+      <li>✓ <strong>Authentification</strong> : Validation des équipements distants</li>
+    </ul>
+
+    <h2>🎯 Objectifs du projet</h2>
+    <ol>
+      <li>Comprendre l'architecture et le fonctionnement d'un VPN IPSec site-to-site</li>
+      <li>Mettre en œuvre les phases IKE (Phase 1 et Phase 2)</li>
+      <li>Configurer les politiques de sécurité IPSec</li>
+      <li>Utiliser une authentification basée sur des clés RSA</li>
+      <li>Vérifier et valider un tunnel VPN fonctionnel</li>
+      <li>Identifier les limites d'un environnement de simulation</li>
+    </ol>
+
+    <h2>Architecture réseau</h2>
+    <h3>Topologie</h3>
+    <p>Voici la topologie réseau représentant l'interconnexion des sites ABIDJAN et HONGKONG via INTERNET et le VPN IPSec :</p>
+    <div style="text-align:center; margin: 20px 0;">
+      <img src="screenshots/topology.png" 
+           alt="Topologie réseau VPN IPSec" 
+           style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+    </div>
+
+    <h3>Configuration des sites</h3>
+    <table>
+      <tr>
+        <th>Site</th>
+        <th>Réseau local</th>
+        <th>Passerelle</th>
+      </tr>
+      <tr>
+        <td>ABIDJAN</td>
+        <td>10.10.0.0/16</td>
+        <td>Routeur ABIDJAN</td>
+      </tr>
+      <tr>
+        <td>HONGKONG</td>
+        <td>192.168.2.0/24</td>
+        <td>Routeur HONGKONG</td>
+      </tr>
+      <tr>
+        <td>INTERNET</td>
+        <td>Réseau intermédiaire</td>
+        <td>Routeur INTERNET</td>
+      </tr>
+    </table>
+
+    <h3>Technologies de sécurité</h3>
+    <ul>
+      <li><strong>Protocole IPSec</strong> : Encapsulation Sécurisée Utile (ESP)</li>
+      <li><strong>Échange de clés</strong> : IKE Phase 1 et Phase 2</li>
+      <li><strong>Authentification</strong> : RSA (RSA Asymmetric Key Cryptography)</li>
+    </ul>
+
+    <h2>Outils et technologies</h2>
+    <table>
+      <tr>
+        <th>Composant</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Simulateur</td>
+        <td>GNS3 (Graphical Network Simulator-3)</td>
+      </tr>
+      <tr>
+        <td>Équipements</td>
+        <td>Routeurs Cisco IOS, IOU L3</td>
+      </tr>
+      <tr>
+        <td>Protocole VPN</td>
+        <td>IPSec (IKE/ISAKMP)</td>
+      </tr>
+      <tr>
+        <td>Chiffrement</td>
+        <td>ESP (Encapsulating Security Payload)</td>
+      </tr>
+      <tr>
+        <td>Authentification</td>
+        <td>RSA avec clés publiques</td>
+      </tr>
+      <tr>
+        <td>Routage</td>
+        <td>Statique</td>
+      </tr>
+    </table>
+
+    <h2>Étapes de mise en œuvre</h2>
+    <h3>1. Configuration IP et routage</h3>
+    <ul>
+      <li>Attribution des adresses IP aux routeurs et aux hôtes</li>
+      <li>Configuration des routes statiques</li>
+      <li>Vérification de la connectivité de base entre les sites</li>
+    </ul>
+
+    <h3>2. Configuration du VPN IPSec</h3>
+    <h4>Phase 1 – Établissement de l'association de sécurité IKE</h4>
+    <pre>
+2.1.1 Définition des politiques ISAKMP
+      • Choix des algorithmes de chiffrement (AES, 3DES)
+      • Sélection de la méthode d'authentification (RSA)
+      • Configuration du domaine
+
+2.1.2 Génération des clés RSA
+      • Création des paires de clés publique/privée
+      • Échange des clés publiques entre routeurs
+
+2.1.3 Application des configurations
+      • Activation des politiques ISAKMP
+      • Configuration de l'association de sécurité IKE
+    </pre>
+
+    <h4>Phase 2 – Configuration IPSec</h4>
+    <pre>
+2.2.1 Définition des transform-sets
+      • Spécification du chiffrement ESP
+      • Configuration du protocole d'authentification
+      • Définition des algorithmes (AES-CBC, SHA-256)
+
+2.2.2 Activation du Perfect Forward Secrecy (PFS)
+      • Configuration de la génération de clés éphémères
+
+2.2.3 Création et gestion des associations de sécurité (SA)
+      • Établissement des canaux de communication sécurisés
+      • Configuration des durées de vie des SA
+    </pre>
+
+    <h3>3. Vérification et validation</h3>
+    <pre>
+# Vérification de l'état IKE
+show crypto isakmp sa
+
+# Vérification de l'état IPSec
+show crypto ipsec sa
+
+# Affichage des crypto maps
+show crypto map
+
+# Test de connectivité de bout en bout
+ping <adresse_destination>
+    </pre>
+
+    <h2>Résultats obtenus</h2>
+    <ul>
+      <li>✓ Tunnel VPN IPSec opérationnel entre les deux sites</li>
+      <li>✓ Chiffrement effectif du trafic sur le réseau public</li>
+      <li>✓ Communication sécurisée entre les réseaux locaux distants</li>
+      <li>✓ Validation complète des phases IKE et IPSec</li>
+    </ul>
+
+    <hr>
+
+    <h2>Informations académiques</h2>
+    <table>
+      <tr><th>Champ</th><th>Valeur</th></tr>
+      <tr><td>Projet</td><td>Sécurité des réseaux – VPN IPSec</td></tr>
+      <tr><td>Auteur</td><td>Saïh Piely Uriel Loïc</td></tr>
+      <tr><td>Niveau</td><td>Élève ingénieur 2e année STIC Informatique</td></tr>
+      <tr><td>Établissement</td><td>Institut National Polytechnique Houphouët-Boigny (INP-HB)</td></tr>
+      <tr><td>Année académique</td><td>2025–2026</td></tr>
+    </table>
+
+    <div class="salutation">
+      Je vous remercie de votre attention et reste à disposition pour toute information complémentaire.
+    </div>
+  </div>
+</body>
+</html>

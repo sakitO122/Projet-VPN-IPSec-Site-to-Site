@@ -12,7 +12,7 @@ Ce projet démontre la conception, la configuration et la validation d'un tunnel
 
 ---
 
-## 🎯 Objectifs du projet
+## Objectifs du projet
 
 1. Comprendre l'architecture et le fonctionnement d'un VPN IPSec site-to-site
 2. Mettre en œuvre les phases IKE (Phase 1 et Phase 2)
@@ -149,7 +149,7 @@ ping <adresse_destination>
 
 ---
 
-## 📁 Organisation du dépôt
+## Organisation du dépôt
 
 ```
 IPSec-VPN-GNS3-TP/
@@ -199,7 +199,7 @@ IPSec-VPN-GNS3-TP/
 
 ---
 
-## 🎓 Conclusion
+##  Conclusion
 
 Ce projet démontre avec succès la mise en œuvre d'un tunnel VPN IPSec site-to-site sécurisé dans un environnement de simulation. Il fournit une base solide pour :
 
@@ -216,4 +216,4 @@ Ce projet démontre avec succès la mise en œuvre d'un tunnel VPN IPSec site-to
 
 ---
 
-**Dernière mise à jour** : Janvier 2026
+**Dernière mise à jour** : Mars 2026
